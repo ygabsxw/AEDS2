@@ -10,7 +10,12 @@ class Data
         int mes;
         int ano;
     public:
-        Data(int dia, int mes, int ano);
+        Data(int dia, int mes, int ano)
+        {
+            this->dia = dia;
+            this->mes = mes;
+            this->ano = ano;
+        }
         void setDia(int dia);
         void setMes(int mes);
         void setAno(int ano);
@@ -21,6 +26,7 @@ class Data
         void leData();
         void escreveData();
 };
+
 
 void Data::setDia(int dia)
 {
@@ -64,12 +70,14 @@ int Data::getAno()
 
 void Data::leData()
 {
-    std::cout<<"Digite o dia: ";
-    std::cin>>this->dia;
-    std::cout<<"Digite o mes: ";
-    std::cin>>this->mes;
-    std::cout<<"Digite o ano: ";
-    std::cin>>this->ano;
+    do {
+        std::cout<<"Digite o dia: ";
+        std::cin>>this->dia;
+        std::cout<<"Digite o mes: ";
+        std::cin>>this->mes;
+        std::cout<<"Digite o ano: ";
+        std::cin>>this->ano;
+    } while(!this->dataValida());
 }
 
 void Data::escreveData()
@@ -115,3 +123,10 @@ void Pessoa::escrevaNome()
     std::cout<<this->nome<<std::endl;
 }
 
+int main()
+{
+    Pessoa pessoas;
+    pessoas.leNome();
+    pessoas.escrevaNome();
+    return 0;
+}
