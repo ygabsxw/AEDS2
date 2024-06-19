@@ -70,14 +70,18 @@ int Data::getAno()
 
 void Data::leData()
 {
+    int dia, mes, ano;
     do {
         std::cout<<"Digite o dia: ";
-        std::cin>>this->dia;
+        std::cin>>dia;
         std::cout<<"Digite o mes: ";
-        std::cin>>this->mes;
+        std::cin>>mes;
         std::cout<<"Digite o ano: ";
-        std::cin>>this->ano;
+        std::cin>>ano;
     } while(!this->dataValida());
+    setDia(dia);
+    setMes(mes);
+    setAno(ano);
 }
 
 void Data::escreveData()
@@ -89,14 +93,22 @@ class Pessoa
 {
     private:
         std::string nome;
-        Data dataNascimento;
-    public:
+        Data nascimento;
         static int quantidade;
+    public:
+        static int getQuantidade()
+        {
+            return quantidade;
+        }
+        Pessoa() {
+            quantidade++;
+        }
         void setNome(std::string nome);
         std::string getNome();
         void leNome();
         void escrevaNome();
-
+        void lePessoa();
+        void escrevaPessoa();
 
 };
 
@@ -114,8 +126,10 @@ std::string Pessoa::getNome()
 
 void Pessoa::leNome()
 {
+    std::string nome;
     std::cout<<"Digite o nome: ";
     std::getline(std::cin, nome);
+    setNome(nome);
 }
 
 void Pessoa::escrevaNome()
@@ -123,10 +137,27 @@ void Pessoa::escrevaNome()
     std::cout<<this->nome<<std::endl;
 }
 
+void Pessoa::lePessoa()
+{
+    leNome();
+    nascimento.leData();
+
+}
+
+void cadastro(Pessoa* P[])
+{
+    if (Pessoa::getQuantidade() < MAX){
+        P[Pessoa::getQuantidade()] = new Pessoa();
+        P[Pessoa::getQuantidade()-1]->lePessoa();
+    }
+}
+
+
+
 int main()
 {
     Pessoa pessoas;
-    pessoas.leNome();
-    pessoas.escrevaNome();
+    pessoas.lePessoa();
+    pessoas.escrevaPessoa();
     return 0;
 }
