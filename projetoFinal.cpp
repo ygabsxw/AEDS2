@@ -64,28 +64,28 @@ int Data::getAno()
 
 void Data::leData()
 {
-    cout<<"Digite o dia: ";
-    cin>>this->dia;
-    cout<<"Digite o mes: ";
-    cin>>this->mes;
-    cout<<"Digite o ano: ";
-    cin>>this->ano;
+    std::cout<<"Digite o dia: ";
+    std::cin>>this->dia;
+    std::cout<<"Digite o mes: ";
+    std::cin>>this->mes;
+    std::cout<<"Digite o ano: ";
+    std::cin>>this->ano;
 }
 
 void Data::escreveData()
 {
-    cout<<this->dia<<"/"<<this->mes<<"/"<<this->ano<<std::endl;
+    std::cout<<this->dia<<"/"<<this->mes<<"/"<<this->ano<<std::endl;
 }
 
 class Pessoa
 {
     private:
-        string nome;
+        std::string nome;
         Data dataNascimento;
     public:
         static int quantidade;
-        void setNome(string nome);
-        string getNome();
+        void setNome(std::string nome);
+        std::string getNome();
         void leNome();
         void escrevaNome();
 
@@ -94,24 +94,24 @@ class Pessoa
 
 int Pessoa::quantidade = 0;
 
-void Pessoa::setNome(string nome)
+void Pessoa::setNome(std::string nome)
 {
     this->nome = nome;
 }
 
-string Pessoa::getNome()
+std::string Pessoa::getNome()
 {
     return this->nome;
 }  
 
 void Pessoa::leNome()
 {
-    cout<<"Digite o nome: ";
-    getline(cin, nome);
+    std::cout<<"Digite o nome: ";
+    std::getline(std::cin, nome);
 }
 
 void Pessoa::escrevaNome()
 {
-    cout<<this->nome<<std::endl;
+    std::cout<<this->nome<<std::endl;
 }
 
