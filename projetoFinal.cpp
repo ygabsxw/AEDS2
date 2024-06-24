@@ -10,6 +10,7 @@ class Data
         int mes;
         int ano;
     public:
+        Data() { }
         Data(int dia, int mes, int ano)
         {
             this->dia = dia;
@@ -101,6 +102,7 @@ class Pessoa
             return quantidade;
         }
         Pessoa() {
+            this->nascimento = Data();
             quantidade++;
         }
         void setNome(std::string nome);
@@ -142,6 +144,12 @@ void Pessoa::lePessoa()
     leNome();
     nascimento.leData();
 
+}
+
+void Pessoa::escrevaPessoa()
+{
+    escrevaNome();
+    nascimento.escreveData();
 }
 
 void cadastro(Pessoa* P[])
