@@ -18,9 +18,9 @@ bool ehPalindromo (char *palavra) {
 }
 
 int main () {
-    char *palavra;
-
-    scanf("%s", palavra);
+    char palavra[5000];
+    
+    scanf(" %[^\n\r]", palavra);
 
     while (strcmp(palavra, "FIM")) {
         if (ehPalindromo(palavra)) {
@@ -29,8 +29,9 @@ int main () {
             printf("NAO\n");
         }
 
-        scanf("%s", palavra);
+        scanf(" %[^\n\r]", palavra);
     }
 
+    getchar();
     return 0;
 }
