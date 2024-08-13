@@ -10,34 +10,27 @@ bool ehPalindromo (char *palavra) {
     for (int i = 0 ; i < length / 2 ; i++) {
         if (palavra[i] != palavra[length - 1 - i]) {
             ehPalin = false;
-            break;
+            i = length;
         }
     }
 
     return ehPalin;
 }
 
-char* escreve () {
-    char *n = (char *) malloc(100 * sizeof(char));
-    if (n == NULL) {
-        printf("Erro de alocação de memória.\n");
-        exit(1);
-    }
-    do {
-        scanf("%s", n); 
-    } while (&n != 'FIM');
-    
-    return n;
-}
-
 int main () {
-    char *palavra = escreve();
-    if (ehPalindromo(palavra)) {
-        printf("SIM\n");
-    } else {
-        printf("NAO\n");
+    char *palavra;
+
+    scanf("%s", palavra);
+
+    while (strcmp(palavra, "FIM")) {
+        if (ehPalindromo(palavra)) {
+            printf("SIM\n");
+        } else {
+            printf("NAO\n");
+        }
+
+        scanf("%s", palavra);
     }
-    
-    free(palavra);
+
     return 0;
 }
