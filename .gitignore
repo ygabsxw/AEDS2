@@ -1,6 +1,6 @@
 *
 !*;
-!*.*
+!*.*;
 
 # Ignore compiled files
 *.class
@@ -9,10 +9,7 @@
 *.exe
 
 # Ignore IDE-specific files
-.idea/
 .vscode/
 
 # Ignore build output
-/build/
-/dist/
-/output/
+/out/

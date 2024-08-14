@@ -4,8 +4,8 @@ public class palindromo {
     public static void main (String[] args) {
         Scanner sc = new Scanner (System.in);
         String palavra = sc.nextLine();
-        
-        while (!palavra.equals("FIM")) {
+
+        while (!(palavra.length() == 3 && palavra.charAt(0) == 'F' && palavra.charAt(1) == 'I' && palavra.charAt(2) == 'M')) {
             boolean ehPalindromo = true;
             for (int i = 0 ; i < palavra.length() / 2 ; i++) {
                 if (palavra.charAt(i) != palavra.charAt(palavra.length() - 1 - i)) {
