@@ -1,12 +1,14 @@
 *
-!*;
-!*.*;
+!*/
+!*.*
 
 # Ignore compiled files
 *.class
 *.jar
 *.war
 *.exe
+*.in
+*.out
 
 # Ignore IDE-specific files
 .vscode/
