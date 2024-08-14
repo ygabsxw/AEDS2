@@ -1,3 +1,7 @@
+*
+!*;
+!*.*
+
 # Ignore compiled files
 *.class
 *.jar
@@ -11,4 +15,4 @@
 # Ignore build output
 /build/
 /dist/
-/out/
+/output/
