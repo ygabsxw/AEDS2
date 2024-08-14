@@ -15,7 +15,7 @@ bool ehPalindromo (char *palavra) {
     }
 
     return ehPalin;
-}
+} //funcao para fazer a verificacao se a string é ou não um palindromo
 
 int main () {
     char palavra[5000];
