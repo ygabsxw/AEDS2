@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class palindromo {
+public class PalindromoJavaIterativo {
     public static void main (String[] args) {
         Scanner sc = new Scanner (System.in);
         String palavra = sc.nextLine();

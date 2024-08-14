@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class recursivo {
+public class Recursivo {
     public static int maiusculas(String palavra, int i, int count) {
         if(i >= palavra.length()) {
             return count;
