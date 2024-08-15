@@ -1,17 +1,18 @@
 import java.util.Scanner;
 
 public class Recursivo {
-    public static int maiusculas(String palavra, int i, int count) {
+    // funcao recursiva para achar a quantidade de letras maiuscula na string
+    private static int maiusculas(String palavra, int i, int count) {
         if(i >= palavra.length()) {
             return count;
-        }
+        } //retorna a contagem de maiusculas para a main saindo da recursividade
 
         if(palavra.charAt(i) >= 'A' && palavra.charAt(i) <= 'Z') {
             count++;
         }
 
         return maiusculas(palavra, i + 1, count);
-    }
+    } 
 
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);

@@ -3,12 +3,13 @@
 #include <string.h>
 #include <stdlib.h>
 
+// funcao recursiva para achar a quantidade de letras maiuscula na string
 int maiusculas (char *palavra, int i, int count) {
     int length = strlen(palavra);
 
     if (i >= length) {
         return count;
-    } // retorna o contagem de maiusculas tirando ela da recursividade
+    } //retorna a contagem de maiusculas para a main saindo da recursividade
 
     if (palavra[i] >= 'A' && palavra[i] <= 'Z') {
         count++;  

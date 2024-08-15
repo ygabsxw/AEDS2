@@ -1,8 +1,8 @@
-package TP1.ex10;
+
 import java.util.Scanner;
 
 public class PalindromoJavaRecursivo {
-    public static boolean ehPalindromo (String palavra, int i, boolean ehPalin) {
+    private static boolean ehPalindromo (String palavra, int i, boolean ehPalin) {
         
         if (i < palavra.length() / 2) {
             if (palavra.charAt(i) != palavra.charAt(palavra.length() - 1 - i)) {
