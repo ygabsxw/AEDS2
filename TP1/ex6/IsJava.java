@@ -20,7 +20,7 @@ public class IsJava {
         boolean consoantes = true;
 
         for (int i = 0 ; i <= tam ; i++) {
-            if((palavra.charAt(i) == 'a' || palavra.charAt(i) == 'A' || palavra.charAt(i) == 'e' || palavra.charAt(i) == 'E' || palavra.charAt(i) == 'i' || palavra.charAt(i) == 'I' || palavra.charAt(i) == 'o' || palavra.charAt(i) == 'O' || palavra.charAt(i) == 'u' || palavra.charAt(i) == 'U' || palavra.charAt(i) >= 0 || palavra.charAt(i) <= 9 )) {
+            if((palavra.charAt(i) == 'a' || palavra.charAt(i) == 'A' || palavra.charAt(i) == 'e' || palavra.charAt(i) == 'E' || palavra.charAt(i) == 'i' || palavra.charAt(i) == 'I' || palavra.charAt(i) == 'o' || palavra.charAt(i) == 'O' || palavra.charAt(i) == 'u' || palavra.charAt(i) == 'U' ) || (palavra.charAt(i) >= '0' && palavra.charAt(i) <= '9' ) || (palavra.charAt(i) == ',' || palavra.charAt(i) == '.')) {
                 consoantes = false;
                 i = tam;
             }
@@ -34,7 +34,7 @@ public class IsJava {
         boolean inteiro = true;
 
         for (int i = 0 ; i <= tam ; i++) {
-            if((palavra.charAt(i) >= 'a' && palavra.charAt(i) <= 'z' || palavra.charAt(i) >= 'A' && palavra.charAt(i) <= 'Z') && !(palavra.charAt(i) >= 0 && palavra.charAt(i) <= 9) && !(palavra.charAt(i) == ',' || palavra.charAt(i) == '.')) {
+            if(!(palavra.charAt(i) >= '0' && palavra.charAt(i) <= '9')) {
                     inteiro = false;
                     i = tam;
             }
@@ -48,7 +48,7 @@ public class IsJava {
         boolean real = true;
 
         for (int i = 0 ; i <= tam ; i++) {
-            if((palavra.charAt(i) >= 'a' && palavra.charAt(i) <= 'z' || palavra.charAt(i) >= 'A' && palavra.charAt(i) <= 'Z') && !(palavra.charAt(i) >= 0 && palavra.charAt(i) <= 9)) {
+            if(!((palavra.charAt(i) >= '0' && palavra.charAt(i) <= '9') || (palavra.charAt(i) == ',' || palavra.charAt(i) == '.'))) {
                 real = false;
                 i = tam;
         }
