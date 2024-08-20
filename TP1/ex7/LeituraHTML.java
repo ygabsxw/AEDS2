@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.net;
 
 public class LeituraHTML {
     private static 

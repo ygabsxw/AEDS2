@@ -5,7 +5,7 @@ public class AlgebraBooleana {
         Scanner sc = new Scanner(System.in);
         String booleana = sc.nextLine();
 
-        while(!(booleana.length() == 1 && booleana.charAt(0) == '0') {
+        while(!(booleana.length() == 1 && booleana.charAt(0) == '0')) {
             System.out.println();
 
             booleana = sc.nextLine();

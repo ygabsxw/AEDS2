@@ -22,6 +22,7 @@ int main () {
     char letraNova = 'a' + (abs(rand()) % 26);
 
     scanf(" %[^\n\r]", palavra);
+    getchar();
 
     while (strcmp(palavra, "FIM")) {
         sorteio(palavra, 0, letraAntiga, letraNova);
@@ -29,7 +30,9 @@ int main () {
         
 
         scanf(" %[^\n\r]", palavra);
+        getchar();
     }
+    
 
     return 0;
 }
