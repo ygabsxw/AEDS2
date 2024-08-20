@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class AlgebraBooleana {
+    private static 
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
         String booleana = sc.nextLine();

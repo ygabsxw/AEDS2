@@ -1,39 +1,32 @@
 import java.util.Scanner;
 
-
 public class SequenciaEspelho {
-    private static String espelho (String num1, String num2) {
-        char [] numFinal = new char[100];
-        char start = num1.charAt(0); 
-        char end = num2.charAt(0);
-        int i = 0;
-
-        while(start <= end) {
-
-            numFinal[i] = start;
-            i++;
-            start++;
+    private static String espelho (int num1, int num2) {
+        String numFinal = "";
+        
+        
+        for(int i = num1 ; i <= num2 ; i++) {
+            numFinal += i;
         }
 
-        return new String(numFinal);
+        int tam = numFinal.length();
+
+        for(int i = 0; i < tam ; i++) {
+            numFinal += numFinal.charAt(tam - 1 -i);
+        }
+
+        return numFinal;
     }
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
-        String num1 = sc.nextLine();
-        String num2 = sc.nextLine();
+    
+        while(sc.hasNextLine()) {
 
-        
-        if(sc.hasNextLine()) {
-            for(int i = 0 ; i < 3 ; i++) {
-                
-                System.out.println(espelho(num1, num2));
-                
-                num1 = sc.nextLine();
-                num2 = sc.nextLine();
-                
-            } 
+            int num1 = sc.nextInt();
+            int num2 = sc.nextInt();
+
+            System.out.println(espelho(num1, num2));           
         }
-
         sc.close();
     }
     
