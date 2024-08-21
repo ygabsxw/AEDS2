@@ -1,4 +1,4 @@
-package TP1.ex14;
+package TP1.Q14;
 
 public class AlgebraBooleanaRecursivo {
     

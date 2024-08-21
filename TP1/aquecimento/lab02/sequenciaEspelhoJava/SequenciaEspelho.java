@@ -24,6 +24,7 @@ public class SequenciaEspelho {
 
             int num1 = sc.nextInt();
             int num2 = sc.nextInt();
+            sc.nextLine();
 
             System.out.println(espelho(num1, num2));           
         }

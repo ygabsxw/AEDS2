@@ -1,3 +1,4 @@
+package TP1.Q01;
 import java.util.Scanner;
 
 public class PalindromoJavaIterativo {
