@@ -37,6 +37,7 @@ public class LeituraHTML {
                     qtdVogais[j]++;
                 }
             }
+            
             System.out.print(vogais[j] + "(" + qtdVogais[j] + ") ");
         }
     }
