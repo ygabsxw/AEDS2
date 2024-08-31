@@ -28,7 +28,7 @@ public class LeituraHTML {
         return response;
     }
 
-    private static void contaVogais (String site, char[] vogais) {
+    private static void contaVogais (String site, char[] vogais, int[] tag) {
         int[] qtdVogais = new int[vogais.length];
 
         for(int j = 0 ; j < vogais.length ; j ++) {
@@ -37,12 +37,14 @@ public class LeituraHTML {
                     qtdVogais[j]++;
                 }
             }
+            qtdVogais[0] -= (1 * tag[1]);
+            qtdVogais[1] -= (0.5 * tag[1]);
             
             System.out.print(vogais[j] + "(" + qtdVogais[j] + ") ");
         }
     }
 
-    private static void contaConsoantes(String site, char[] consoantes) {
+    private static void contaConsoantes(String site, char[] consoantes, int[] tag) {
         int qtdConsoantes = 0;
 
         for(int j = 0 ; j < consoantes.length ; j++) {
@@ -52,10 +54,13 @@ public class LeituraHTML {
                 }
             }
         }
+        qtdConsoantes -= (2 * tag[0]);
+        qtdConsoantes -= (3 * tag[1]);
+        
         System.out.print("consoante(" + qtdConsoantes + ") ");
     }
 
-    private static void contaTags(String site, String[] tags) {
+    private static int[] contaTags(String site, String[] tags) {
         int[] qtdTags = new int[tags.length];
 
         for(int j = 0 ; j < tags.length ; j++) {
@@ -74,8 +79,9 @@ public class LeituraHTML {
                     }
                 }
             }
-            System.out.print(tags[j] + "(" + qtdTags[j] + ") ");
+            
         }     
+        return qtdTags;
     }
 
     private static void qtdElementos (String titulo, String url) {
@@ -85,13 +91,17 @@ public class LeituraHTML {
         char[] vogais = { 'a', 'e', 'i', 'o', 'u', '\u00E1', '\u00E9', '\u00ED', '\u00F3', '\u00FA', '\u00E0', '\u00E8', '\u00EC', '\u00F2', '\u00F9', '\u00E3', '\u00F5', '\u00E2', '\u00EA', '\u00EE', '\u00F4', '\u00FB' };
         char[] consoantes = { 'b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z' };
         String[] tags = {"<br>", "<table>"};
+        
+        int[] tag = contaTags(site, tags);
 
-        contaVogais(site, vogais);
+        contaVogais(site, vogais, tag);
 
-        contaConsoantes(site, consoantes);
+        contaConsoantes(site, consoantes, tag);
 
-        contaTags(site, tags);
-
+        for (int i = 0 ; i < tag.length ; i++) {
+            System.out.print(tags[i] + "(" + tag[i] + ") ");
+        }
+            
         System.out.println(titulo);
 
     }
