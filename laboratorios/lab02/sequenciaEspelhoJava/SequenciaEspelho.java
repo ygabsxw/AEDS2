@@ -1,3 +1,4 @@
+package laboratorios.lab02.sequenciaEspelhoJava;
 import java.util.Scanner;
 
 public class SequenciaEspelho {

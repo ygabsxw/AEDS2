@@ -1,3 +1,4 @@
+package laboratorios.lab01.iterativoJava;
 import java.util.Scanner;
 
 public class Iterativo {

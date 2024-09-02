@@ -1,3 +1,4 @@
+package laboratorios.lab01.recursivoJava;
 import java.util.Scanner;
 
 public class Recursivo {

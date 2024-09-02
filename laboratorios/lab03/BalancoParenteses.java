@@ -1,3 +1,4 @@
+package laboratorios.lab03;
 import java.util.Scanner;
 
 public class BalancoParenteses {    
