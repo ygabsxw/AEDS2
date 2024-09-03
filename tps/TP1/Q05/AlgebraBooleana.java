@@ -1,9 +1,11 @@
+package tps.TP1.Q05;
 import java.util.Scanner;
 
-public class AlgebraBooleanaRecursivo {
-    private static String trocaBinaria(int[] valoresBinarios, String booleana, String troca, int i) {
+public class AlgebraBooleana {
+    private static String trocaBinaria(int[] valoresBinarios, String booleana) {
+        String troca = "";
 
-        if (i < booleana.length()) {
+        for (int i = 0 ; i < booleana.length() ; i++) {
             if (booleana.charAt(i) != ' ') {
                 if (booleana.charAt(i) == 'A') {
                     troca += valoresBinarios[0]; //substitui o A pelo primeiro valor binario
@@ -15,30 +17,30 @@ public class AlgebraBooleanaRecursivo {
                     troca += booleana.charAt(i); //remove os espacos
                 }
             }
-            troca = trocaBinaria(valoresBinarios, booleana, troca, i + 1);
         }
 
         return troca;
     }
 
-    private static String funcaoNot(String booleana, String not, int i) {
+    private static String funcaoNot(String booleana) {
+        String not = "";
 
-        if (i < booleana.length()) {
+        for (int i = 0 ; i < booleana.length() ; i++) {
             if (booleana.charAt(i) == 'n' && (booleana.charAt(i + 4) == '1' || booleana.charAt(i + 4) == '0')) {
                 not += booleana.charAt(i + 4) == '1' ? 0 : 1; //se for 1 vira 0, se for 0 vira 1
                 i += 5;
             } else {
                 not += booleana.charAt(i);
             }
-            not = funcaoNot(booleana, not, i + 1);
         }
 
         return not;
     }
 
-    private static String funcaoAnd(String booleana, String and, int i) {
+    private static String funcaoAnd(String booleana) {
+        String and = ""; //and(A,B,C,D)
 
-        if (i < booleana.length()) {
+        for (int i = 0 ; i < booleana.length() ; i++) {
             if (booleana.charAt(i) == 'a' && (booleana.charAt(i + 4) == '1' || booleana.charAt(i + 4) == '0') && (booleana.charAt(i + 6) == '1' || booleana.charAt(i + 6) == '0')) {
                 if(booleana.charAt(i + 7) == ')') {
                     and += (booleana.charAt(i + 4) == '1' && booleana.charAt(i + 6) == '1') ? 1 : 0; //se ambos forem 1 continua 1, mas se algum for 0, vira 0
@@ -55,15 +57,15 @@ public class AlgebraBooleanaRecursivo {
             } else {
                 and += booleana.charAt(i);
             }
-            and = funcaoAnd(booleana, and, i + 1);
         }
         
         return and;
     }
 
-    private static String funcaoOr(String booleana, String or, int i) {
+    private static String funcaoOr(String booleana) {
+        String or = ""; //or(A,B,C,D)
 
-        if (i < booleana.length()) {
+        for (int i = 0 ; i < booleana.length() ; i++) {
             if (booleana.charAt(i) == 'o' && booleana.charAt(i + 1) == 'r' && (booleana.charAt(i + 3) == '1' || booleana.charAt(i + 3) == '0') &&  (booleana.charAt(i + 5) == '1' || booleana.charAt(i + 5) == '0')) {
                 if (booleana.charAt(i + 6) == ')') {
                     or += (booleana.charAt(i + 3) == '1' || booleana.charAt(i + 5) == '1') ? 1 : 0; //se algum for 1 continua 1, mas se algum for 0, vira 0
@@ -78,31 +80,44 @@ public class AlgebraBooleanaRecursivo {
             } else {
                 or += booleana.charAt(i);
             }
-            or = funcaoOr(booleana, or, i + 1);
         }
         
         return or;
     }
 
-    private static String contaParenteses(String booleana, int operacao) {
-        String funcao = "";
-        int tam = booleana.length() - 1;
-    
-    
-        if (operacao == tam)
-          funcao = booleana;
-        else if (booleana.charAt(operacao) == 'n')
-          funcao = funcaoNot(contaParenteses(booleana, operacao + 4), "", 0);
-        else if (booleana.charAt(operacao) == 'a')
-          funcao = funcaoAnd(contaParenteses(booleana, operacao + 4), "", 0);
-        else if (booleana.charAt(operacao) == 'o')
-          funcao = funcaoOr(contaParenteses(booleana, operacao + 3), "", 0);
-        else
-          funcao = contaParenteses(booleana, ++operacao);
-    
-        return funcao;
-      }
+    private static String contaParenteses(String booleana) {
+        int operacao = 0;
 
+        for(int i = 0 ; i < booleana.length() ; i++) {
+            if(booleana.charAt(i) == '(') {
+                operacao++;
+            }
+        }
+
+        char[] funcao = new char[operacao];
+
+        for (int i = 0 ; i < booleana.length() - 2; i++) {
+            if(booleana.charAt(i + 2) == 't') { //se for not
+                funcao[--operacao] = 'n';
+            } else if(booleana.charAt(i + 2) == 'd') { //se for and
+                funcao[--operacao] = 'a';
+            } else if (booleana.charAt(i + 1) == 'r') { //se for or
+                funcao[--operacao] = 'o';
+            } 
+        }
+
+        for (int i = 0 ; i < funcao.length ; i++) {
+            if(funcao[i] == 'n') {
+                booleana = funcaoNot(booleana);
+            } else if(funcao[i] == 'a') {
+                booleana = funcaoAnd(booleana);
+            } else {
+                booleana = funcaoOr(booleana);
+            }
+        }
+
+        return booleana;
+    }
     public static void main (String[] args) {
         Scanner sc = new Scanner(System.in);
         int qtdValoresB = sc.nextInt();
@@ -116,9 +131,9 @@ public class AlgebraBooleanaRecursivo {
 
             booleana = sc.nextLine();
 
-            booleana = trocaBinaria(valoresBinarios, booleana, "", 0);
+            booleana = trocaBinaria(valoresBinarios, booleana);
             
-            booleana = contaParenteses(booleana, 0);
+            booleana = contaParenteses(booleana);
 
             System.out.println(booleana);
 

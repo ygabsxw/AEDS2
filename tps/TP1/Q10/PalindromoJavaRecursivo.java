@@ -1,3 +1,4 @@
+package tps.TP1.Q10;
 
 import java.util.Scanner;
 

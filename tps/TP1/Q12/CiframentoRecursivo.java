@@ -1,3 +1,4 @@
+package tps.TP1.Q12;
 import java.util.Scanner;
 
 public class CiframentoRecursivo {

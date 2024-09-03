@@ -1,3 +1,4 @@
+package tps.TP1.Q08;
 import java.util.Scanner;
 import java.io.RandomAccessFile;
 import java.io.BufferedReader;
