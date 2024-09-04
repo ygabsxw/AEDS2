@@ -1,7 +1,7 @@
 import java.util.Scanner;
 import java.util.HashSet;
 
-public class pokemonColectionJava {
+public class PokemonColectionJava {
     private static int checkPokemons(int qtdPokemons, String[] pokemons) {
         HashSet<String> uniquePokemons = new HashSet<>();
 
