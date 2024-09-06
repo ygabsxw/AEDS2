@@ -52,8 +52,10 @@ void ordemMedalhas (int qtdPaises, char *Paises[], int ouro[], int prata[], int 
 void escrevePaises (int qtdPaises, char *Paises[50], int ouro[], int prata[], int bronze[]) {
     for (int i = 0 ; i < qtdPaises ; i++) {
         Paises[i] = (char *)malloc(50 * sizeof(char));
-
-        scanf(" %[^\n] %d %d %d", Paises[i], &ouro[i], &prata[i], &bronze[i]);
+        
+        scanf(" %s %d %d %d", Paises[i], &ouro[i], &prata[i], &bronze[i]);
+        
+        
     }
 }
 
@@ -73,6 +75,8 @@ int main () {
     for (int i = 0 ; i < qtdPaises ; i++) {
         free(Paises[i]);
     }
+
+    
 
     return 0;
 }
