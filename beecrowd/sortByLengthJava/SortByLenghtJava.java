@@ -3,26 +3,16 @@ import java.util.Scanner;
 public class SortByLenghtJava {
     private static Scanner sc = new Scanner(System.in);
 
-    private static void swap (int maiorPalavra, int i, String []palavra) {
-        String palavraAux = palavra[maiorPalavra];
-        palavra[maiorPalavra] = palavra[i];
-        palavra[i] = palavraAux;
-
-    }
-
     private static void sortString (String []palavra, int palavraIndex) {
         
-        for (int i = 0 ; i < palavraIndex; i++) {
-            int maiorPalavra = i;
-            for (int j = i + 1 ; j < palavraIndex ; j++) {
-                if (palavra[j].length() > palavra[maiorPalavra].length()) {
-                    maiorPalavra = j;
-                }
-                
-                
+        for (int i = 1 ; i < palavraIndex; i++) {
+            String key = palavra[i];
+            int j = i - 1;
+            while (j >= 0 && palavra[j].length() < key.length()) {
+                palavra[j + 1] = palavra[j];
+                j = j - 1;
             }
-            
-            swap(maiorPalavra, i, palavra);
+            palavra[j + 1] = key;
         }
     }
 
