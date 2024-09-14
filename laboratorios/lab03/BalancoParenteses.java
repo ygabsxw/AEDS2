@@ -40,5 +40,7 @@ public class BalancoParenteses {
 
             expressao = sc.nextLine();
         }
+
+        sc.close();
     }
 }
