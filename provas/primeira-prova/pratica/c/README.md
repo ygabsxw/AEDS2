@@ -1,5 +1,7 @@
 # Ordenando a Lista de Crianças do Papai Noel - beecrowd 2479
 
+## Descrição
+
 Papai Noel está nos preparativos finais para a entrega dos presentes para as crianças do mundo todo pois o natal está chegando mais uma vez. Olhando suas novas listas de crianças que irão ganhar presentes neste ano ele percebeu que o duende estagiário (que havia ficado responsável por fazer as listas) não havia colocado os nomes em ordem alfabética.
 
 Como o Papai Noel é um homem muito organizado ele deseja que cada lista de crianças possua, no seu final, o total de crianças que foram bem comportadas neste ano e um total das que não foram. Assim ele pode comparar a quantidade de crianças que se comportam este ano com as dos anos anteriores.
@@ -31,6 +33,7 @@ Para cada lista de crianças, você deve imprimir os nomes em ordem alfabética.
 - Zezinho
 - Luquinhas
 + Julhinha
+
 ```
 
 ### Exemplos de Saída
@@ -53,4 +56,5 @@ Tininha
 Zezinho
 
 Se comportaram: 7 | Nao se comportaram: 9
+
 ```
