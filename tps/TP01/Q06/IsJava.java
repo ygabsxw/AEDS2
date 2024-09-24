@@ -1,4 +1,4 @@
-package tps.TP1.Q06;
+package tps.TP01.Q06;
 import java.util.Scanner;
 
 public class IsJava {

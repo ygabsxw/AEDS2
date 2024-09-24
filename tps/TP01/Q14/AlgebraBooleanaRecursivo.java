@@ -1,4 +1,4 @@
-package tps.TP1.Q14;
+package tps.TP01.Q14;
 import java.util.Scanner;
 
 public class AlgebraBooleanaRecursivo {

@@ -1,4 +1,4 @@
-package tps.TP1.Q07;
+package tps.TP01.Q07;
 import java.util.Scanner;
 import java.net.*;
 import java.io.BufferedReader;
