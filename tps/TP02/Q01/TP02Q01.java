@@ -1,4 +1,3 @@
-package tps.TP02.Q01;
 
 import java.util.*;
 import java.io.*;
@@ -94,6 +93,14 @@ class Pokemon {
         this.abilities = abilities;
     }
 
+    public void setAbilities(String abilities) {
+        
+        abilities = abilities.replaceAll("[\\[\\]\"']", "").trim();
+
+        
+        this.abilities = new ArrayList<>(Arrays.asList(abilities.split(",\\s*")));
+    }
+
     //weight
     public double getWeight() {
         return weight;
@@ -144,7 +151,7 @@ class Pokemon {
     }
 
     void ler (String csvLine) {
-        String[] data = csvLine.split(",");
+        String[] data = csvLine.split(",(?=(?:[^\\\"]*\\\"[^\\\"]*\\\")*[^\\\"]*$)");
         
         setId(Integer.parseInt(data[0]));
         setGeneration(Integer.parseInt(data[1]));
@@ -153,17 +160,35 @@ class Pokemon {
 
         //types
         ArrayList<String> typesList = new ArrayList<>();
-        if (!data[4].isEmpty()) typesList.add(data[4]);
+        typesList.add(data[4]);
         if (!data[5].isEmpty()) typesList.add(data[5]);
         setTypes(typesList);
 
         //abilities
-        ArrayList<String> abilitiesList = parseAbilities(data[6]);
-        setAbilities(abilitiesList);
+        int dataCount = 6;
+        String abilitiesStr = data[6].replace("[", "").replace("]", "").replace("'", "").trim();
+        setAbilities(abilitiesStr);
 
-        setWeight(Double.parseDouble(data[7]));
-        setHeight(Double.parseDouble(data[8]));
-        setCaptureRate(Integer.parseInt(data[9]));
+        // weight
+        if (!data[7].isEmpty()) {
+            setWeight(Double.parseDouble(data[7]));
+        } else {
+            setWeight(0);
+        }
+
+        // height
+        if (!data[8].isEmpty()) {
+            setHeight(Double.parseDouble(data[8]));
+        } else {
+            setHeight(0); // Define 0 ou outro valor padrão se o campo estiver vazio
+        }
+
+        // captureRate
+        if (!data[9].isEmpty()) {
+            setCaptureRate(Integer.parseInt(data[9]));
+        } else {
+            setCaptureRate(0); // Define um valor padrão se o campo estiver vazio
+        }
 
         setIsLegendary(data[10].equals("1") || data[10].equalsIgnoreCase("true"));
 
@@ -173,12 +198,6 @@ class Pokemon {
 
     }
 
-    private ArrayList<String> parseAbilities(String abilitiesStr) {
-        abilitiesStr = abilitiesStr.replace("[", "").replace("]", "").replace("'", "").trim();
-        String[] abilitiesArray = abilitiesStr.split(",\\s*");
-        return new ArrayList<>(Arrays.asList(abilitiesArray));
-    }
-
     private LocalDate parseDate(String dateStr) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return LocalDate.parse(dateStr, formatter);
@@ -186,32 +205,40 @@ class Pokemon {
 
     String imprimir () {
         StringBuilder sb = new StringBuilder();
-        sb.append(getId()).append(",");
-        sb.append(getGeneration()).append(",");
-        sb.append(getName()).append(",");
-        sb.append(getDescription()).append(",");
+        sb.append("[#");
+        sb.append(getId()).append(" -> ");
+        sb.append(getName()).append(": ");
+        sb.append(getDescription()).append(" - ['");
 
         //types
         if (getTypes().size() > 0) {
             sb.append(getTypes().get(0));
-        } else {
-            sb.append("");
         }
-        sb.append(",");
+        sb.append("'");
         if (getTypes().size() > 1) {
-            sb.append(getTypes().get(1));
-        } else {
-            sb.append("");
+            sb.append(", '");
+            sb.append(getTypes().get(1)).append("'");
         }
-        sb.append(",");
+        sb.append("] - ");
 
         //abilities
-        sb.append("\"").append(getAbilities().toString()).append("\"").append(",");
+        sb.append("[");
+        for (int i = 0 ; i < getAbilities().size() ; i++) {
+            sb.append("'");
+            sb.append(getAbilities().get(i));
+            sb.append("'");
+            if (i < getAbilities().size() - 1) {
+                // colocar a virgula caso ainda tenha abilities
+                sb.append(", ");
+            }
+        }
+        sb.append("] - ");
 
-        sb.append(getWeight()).append(",");
-        sb.append(getHeight()).append(",");
-        sb.append(getGeneration()).append(",");
-        sb.append(getIsLegendary() ? "1" : "0").append(",");
+        sb.append(getWeight()).append("kg - ");
+        sb.append(getHeight()).append("m - ");
+        sb.append(getCaptureRate()).append("% - ");
+        sb.append(getIsLegendary() ? "true" : "false").append(" - ");
+        sb.append(getGeneration()).append(" gen] - ");
         sb.append(getCaptureDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
         return sb.toString();
@@ -221,20 +248,58 @@ class Pokemon {
 
 public class TP02Q01 {
     public static void main(String[] args) {
-        Pokemon[] pokedex = new Pokemon[80];
-        int pokemonCount = 0;
+        // ler o csv
+        String csvPath = "/tmp/pokemon.csv";
+        
+        ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvPath))) {
+            br.readLine(); 
+
+            while(br.ready()) {
+                String linha = br.readLine();
+                // System.out.println("Linha lida: " + linha);
+
+                Pokemon p = new Pokemon();
+                p.ler(linha);
+                pokedex.add(p);
+            }
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Erro: Arquivo não encontrado em " + csvPath);
+        } catch (IOException e) {
+            System.err.println("Erro ao ler o arquivo CSV: " + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // System.out.println("Pokémons carregados: " + pokedex.size());
+        // for (Pokemon p : pokedex) {
+        //     System.out.println(p.imprimir());
+        // }
 
         Scanner sc = new Scanner(System.in);
+        String inputId = sc.nextLine();
         
+        while (!(inputId.equals("FIM"))) {
+            int id = Integer.parseInt(inputId);
+            
+            Pokemon foundPokemon = null;
+            for (Pokemon p : pokedex) {
+                if (p.getId() == id) {
+                    foundPokemon = p;
+                    break;
+                }
+            }
+             
+            if (foundPokemon != null) {
+                System.out.println(foundPokemon.imprimir());
+            }
+            
+
+            inputId = sc.nextLine();
+        }
+
         sc.close();
-
-        // ler o csv
-        // para o verde
-        // String csvFile = "/tmp/pokemon.csv"
-
-        // normal
-        String csvFile = "/tmp/pokemon.csv";
-        String line;
-
     }
 }
