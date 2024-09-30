@@ -51,6 +51,7 @@ char* my_strdup(const char* s) {
     return copy;
 }
 
+// id
 int getId(Pokemon *p) {
     return p->id;
 }
@@ -59,6 +60,7 @@ void setId(Pokemon *p, int id) {
     p->id = id;
 }
 
+// generation
 int getGeneration(Pokemon *p) {
     return p->generation;
 }
@@ -67,6 +69,7 @@ void setGeneration(Pokemon *p, int generation) {
     p->generation = generation;
 }
 
+// name
 char* getName(Pokemon *p) {
     return p->name;
 }
@@ -75,6 +78,7 @@ void setName(Pokemon *p, char *name) {
     p->name = name;
 }
 
+// description
 char* getDescription(Pokemon *p) {
     return p->description;
 }
@@ -83,6 +87,7 @@ void setDescription(Pokemon *p, char *description) {
     p->description = description;
 }
 
+// types
 char* getTypes(Pokemon *p, int index) {
     return p->types[index];
 }
@@ -102,6 +107,7 @@ void setTypes(Pokemon *p, int index, char *type) {
     p->types[index][sizeof(p->types[index]) - 1] = '\0';
 }
 
+// abilities
 char* getAbilities(Pokemon *p, int index) {
     return p->abilities[index];
 }
@@ -121,6 +127,7 @@ void setAbilities(Pokemon *p, int index, const char *ability) {
     p->abilities[index][sizeof(p->abilities[index]) - 1] = '\0';
 }
 
+// weight
 double getWeight(Pokemon *p) {
     return p->weight;
 }
@@ -129,6 +136,7 @@ void setWeight(Pokemon *p, double weight) {
     p->weight = weight;
 }
 
+// height
 double getHeight(Pokemon *p) {
     return p->height;
 }
@@ -137,6 +145,7 @@ void setHeight(Pokemon *p, double height) {
     p->height = height;
 }
 
+// captureRate
 int getCaptureRate(Pokemon *p) {
     return p->captureRate;
 }
@@ -145,6 +154,7 @@ void setCaptureRate(Pokemon *p, int captureRate) {
     p->captureRate = captureRate;
 }
 
+// isLegendary
 bool getIsLegendary(Pokemon *p) {
     return p->isLegendary;
 }
@@ -153,6 +163,7 @@ void setIsLegendary(Pokemon *p, bool isLegendary) {
     p->isLegendary = isLegendary;
 }
 
+// captureDate
 Date getCaptureDate(Pokemon *p) {
     return p->captureDate;
 }
@@ -204,7 +215,7 @@ Pokemon createPokemon(int id, int generation, char *name,
     return p;
 }
 
-// Função para dividir uma linha CSV em campos, considerando aspas duplas
+// Função para dividir uma linha CSV em campos, considerando double quotes
 int split_csv_line(char *line, char **fields, int max_fields) {
     int field_count = 0;
     char *ptr = line;

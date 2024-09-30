@@ -137,10 +137,6 @@ class Pokemon {
         this.isLegendary = isLegendary;
     }
 
-    public void setIsLegendary(String isLegendary) {
-        this.isLegendary = isLegendary.equals("true") ? true : false;
-    }
-
     //captureDate
     public LocalDate getCaptureDate() {
         return captureDate;
@@ -165,7 +161,6 @@ class Pokemon {
         setTypes(typesList);
 
         //abilities
-        int dataCount = 6;
         String abilitiesStr = data[6].replace("[", "").replace("]", "").replace("'", "").trim();
         setAbilities(abilitiesStr);
 
