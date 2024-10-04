@@ -368,10 +368,41 @@ void imprimirPokemon(Pokemon *p) {
     printf("\n");
 }
 
+void selectionSortRec(Pokemon findPokemon[], int i, int j, int menor, int tam, int comp[], int mov[]) {
+    if (i >= tam - 1)
+        return;
+
+    if(j < tam) {
+        comp[0]++;
+        if (strcmp(findPokemon[menor].name, findPokemon[j].name) > 0) {
+            menor = j;
+        }
+        selectionSortRec(findPokemon, i, j+1, menor, tam, comp, mov);
+    } else {
+        if(menor != i) {
+            mov[0]++;
+            Pokemon aux = findPokemon[i];
+            findPokemon[i] = findPokemon[menor];
+            findPokemon[menor] = aux;
+        }
+        
+        selectionSortRec(findPokemon, i+1, i+2, i+1, tam, comp, mov);
+    }
+
+      
+}
+
+void selectionSort(Pokemon findPokemon[], int tam, int comp[], int mov[]) {
+    int i = 0;
+    int menor = i;
+    int j = i + 1;   
+    selectionSortRec(findPokemon, i, j, menor, tam, comp, mov);
+}
+
 // main
 
 int main () {
-    char *csvPath = "/tmp/pokemon.csv";
+    char *csvPath = "pokemon.csv";
 
     clock_t start = clock();
 
@@ -393,14 +424,16 @@ int main () {
     scanf("%s", inputId);
 
     Pokemon findPokemon[51];
-    int comp = 0;
+    int comp[1];
+    int mov[1];
+    comp[0] = 0;
+    mov[0] = 0;
     int j = 0;
     
     while (strcmp(inputId, "FIM") != 0) {
         int id = atoi(inputId);
 
         for (int i = 0 ; i < n ; i++) {
-            comp++;
             if (pokedex[i].id == id) {
                 findPokemon[j++] = pokedex[i];
                 break;
@@ -410,57 +443,10 @@ int main () {
         scanf("%s", inputId); 
     }
 
-    // order by name
+    selectionSort(findPokemon, j, comp, mov);
 
     for (int i = 0 ; i < j ; i++) {
-        int menor = i;
-        for (int k = i + 1 ; k < j ; k++) {
-            comp++;
-            if (strcmp(findPokemon[menor].name, findPokemon[k].name) > 0) {
-                menor = k;
-            }
-        }
-        if (menor != i) {
-            Pokemon aux = findPokemon[i];
-            findPokemon[i] = findPokemon[menor];
-            findPokemon[menor] = aux;
-        }
-    }
-
-    // binary 
-
-    char name[50];
-    scanf(" %[^\r\n]", name);
-
-    while(strcmp(name, "FIM") != 0) {
-        int inicio = 0;
-        int fim = j - 1;
-        bool foundPokemon = false;
-
-        while (inicio <= fim) {
-            comp++;
-            int meio = inicio + (fim - inicio) / 2;
-
-            int cmp = strcmp(name, findPokemon[meio].name);
-
-            if (cmp == 0) {
-                foundPokemon = true;
-                break;
-            } else if (cmp < 0) {
-                fim = meio - 1;
-            } else {
-                inicio = meio + 1;
-            }
-
-        
-        }
-        if (foundPokemon) {
-            printf("SIM\n");
-        } else {
-             printf("NAO\n");
-        }
-
-        scanf(" %[^\r\n]", name);
+        imprimirPokemon(&findPokemon[i]);
     }
 
     clock_t end = clock();
@@ -468,14 +454,14 @@ int main () {
 
     // txt
 
-    FILE *arquivo = fopen("843610_binario.txt", "w");
+    FILE *arquivo = fopen("843610_selecaoRecursiva.txt", "w");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo!\n");
         return 1;
     }
 
     // Escreve a matrícula, tempo de execução e número de comparações separados por tabulação
-    fprintf(arquivo, "843610\t%.2f\t%d\n", executionTime, comp);
+    fprintf(arquivo, "843610\t%d\t%d\t%.2f\n", comp[0], mov[0], executionTime);
     fclose(arquivo);
 
     // Libera a memória alocada
