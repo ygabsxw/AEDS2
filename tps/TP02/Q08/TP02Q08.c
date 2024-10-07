@@ -368,7 +368,7 @@ void imprimirPokemon(Pokemon *p) {
     printf("\n");
 }
 
-void shellSort(Pokemon findPokemon[], int tam, int comp[], int mov[]) {
+void shellSort(Pokemon findPokemon[], int tam, int *comp, int *mov) {
     for (int gap = tam / 2 ; gap > 0 ; gap /= 2) {
         for (int i = gap ; i < tam ; i++) {
             Pokemon key = findPokemon[i];
@@ -379,7 +379,7 @@ void shellSort(Pokemon findPokemon[], int tam, int comp[], int mov[]) {
                 bool weightEquals = findPokemon[j - gap].weight == key.weight;
                 int name = strcmp(findPokemon[j - gap].name, key.name);
 
-                comp[0]++;
+                (*comp)++;
 
                 if (weight || (weightEquals && name > 0)) {
                     findPokemon[j] = findPokemon[j - gap];
@@ -388,7 +388,7 @@ void shellSort(Pokemon findPokemon[], int tam, int comp[], int mov[]) {
                     break;
                 }
             }
-            mov[0]++;
+            (*mov)++;
             findPokemon[j] = key;
         }
     }  
@@ -398,7 +398,7 @@ void shellSort(Pokemon findPokemon[], int tam, int comp[], int mov[]) {
 // main
 
 int main () {
-    char *csvPath = "pokemon.csv";
+    char *csvPath = "/tmp/pokemon.csv";
 
     clock_t start = clock();
 
@@ -420,10 +420,9 @@ int main () {
     scanf("%s", inputId);
 
     Pokemon findPokemon[51];
-    int comp[1];
-    int mov[1];
-    comp[0] = 0;
-    mov[0] = 0;
+    int comp = 0;
+    int mov = 0;
+
     int j = 0;
     
     while (strcmp(inputId, "FIM") != 0) {
@@ -457,7 +456,7 @@ int main () {
     }
 
     // Escreve a matrícula, tempo de execução e número de comparações separados por tabulação
-    fprintf(arquivo, "843610\t%d\t%d\t%.2f\n", comp[0], mov[0], executionTime);
+    fprintf(arquivo, "843610\t%d\t%d\t%.2f\n", &comp, &mov, executionTime);
     fclose(arquivo);
 
     // Libera a memória alocada

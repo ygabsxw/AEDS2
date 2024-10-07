@@ -241,7 +241,35 @@ class Pokemon {
 
 }
 
-public class TP02Q03 {
+public class TP02Q07 {
+    
+    private static void swap(Pokemon []findPokemon, int i, int menor) {
+        Pokemon aux = findPokemon[i];
+        findPokemon[i] = findPokemon[menor];
+        findPokemon[menor] = aux;
+    }
+
+    private static void insertionSort(Pokemon []findPokemon, int tam, int[] comp, int[] mov) {
+        for (int i = 1 ; i < tam ; i++) {
+            Pokemon key = findPokemon[i];
+            int j = i - 1;
+            
+            while (j >= 0) {
+                int date = key.getCaptureDate().compareTo(findPokemon[j].getCaptureDate());
+                int name = key.getName().compareTo(findPokemon[j].getName());
+                comp[0]++;
+                if (date < 0 || (date == 0 && name < 0)) {
+                    findPokemon[j + 1] = findPokemon[j];
+                    j = j - 1;
+                } else {
+                    break;
+                }
+            }
+            mov[0]++;
+            findPokemon[j + 1] = key;
+        }
+    }
+
     public static void main(String[] args) {
         // ler o csv
         String csvPath = "/tmp/pokemon.csv";
@@ -279,51 +307,37 @@ public class TP02Q03 {
         Scanner sc = new Scanner(System.in);
 
         String id = sc.nextLine();
-        int i = 0;
+        int tam = 0;
         Pokemon[] findPokemon = new Pokemon[51];
-        int comp = 0;
+        int []comp = new int[1];
+        int []mov = new int[1];
+        comp[0] = 0;
+        mov[0] = 0;
 
         while (!(id.equals("FIM"))) {
             for (Pokemon p : pokedex) {
                 if (p.getId() == Integer.parseInt(id)) {
-                    findPokemon[i++] = p;
+                    findPokemon[tam++] = p;
                     break;
                 }
             }
             
             id = sc.nextLine();
         }
-        
 
-        String name = sc.nextLine();
+        insertionSort(findPokemon, tam, comp, mov);
 
-        while(!(name.equals("FIM"))) {
-            boolean foundPokemon = false;
-
-            for (int j = 0 ; j < i ; j++) {
-                comp++;
-                if (findPokemon[j].getName().equals(name)) {
-                    foundPokemon = true;
-                    break;
-                }   
-            }
-            
-            if (foundPokemon == true) {
-                System.out.println("SIM");
-            } else {
-                System.out.println("NAO");
-            }
-
-            name = sc.nextLine();
-        } 
+        for (int j = 0 ; j < tam ; j++) {
+            System.out.println(findPokemon[j].imprimir());
+        }
 
         long end = System.nanoTime();
 
         double executionTime = (end - start);
 
-        String conteudo = "843610" + "\t" + executionTime + "ms" + "\t" + comp;
+        String conteudo = "843610" + "\t" + comp[0] + "\t" + mov[0] + '\t' + executionTime + "ms";
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("843610_sequencial.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("843610_insercao.txt"))) {
             writer.write(conteudo);
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo: " + e.getMessage());

@@ -248,17 +248,17 @@ public class TP02Q05 {
         findPokemon[menor] = aux;
     }
 
-    private static void selectionSort(Pokemon []findPokemon, int tam, int comp, int mov) {
+    private static void selectionSort(Pokemon []findPokemon, int tam, int[] comp, int[] mov) {
         for (int i = 0 ; i < tam ; i++) {
             int menor = i;
             for (int j = i + 1 ; j < tam ; j++) {
-                comp++;
+                comp[0]++;
                 if (findPokemon[j].getName().compareTo(findPokemon[menor].getName()) < 0) {
                     menor = j;
                 }
             }
             if (menor != i) {
-                mov++;
+                mov[0]++;
                 swap(findPokemon, i, menor);
             }
         }
@@ -303,12 +303,13 @@ public class TP02Q05 {
         String id = sc.nextLine();
         int tam = 0;
         Pokemon[] findPokemon = new Pokemon[51];
-        int comp = 0;
-        int mov = 0;
+        int []comp = new int[1];
+        int []mov = new int[1];
+        comp[0] = 0;
+        mov[0] = 0;
 
         while (!(id.equals("FIM"))) {
             for (Pokemon p : pokedex) {
-                comp++;
                 if (p.getId() == Integer.parseInt(id)) {
                     findPokemon[tam++] = p;
                     break;
@@ -328,7 +329,7 @@ public class TP02Q05 {
 
         double executionTime = (end - start);
 
-        String conteudo = "843610" + "\t" + mov + "\t" + comp + '\t' + executionTime + "ms";
+        String conteudo = "843610" + "\t" + comp[0] + "\t" + mov[0] + '\t' + executionTime + "ms";
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("843610_selecao.txt"))) {
             writer.write(conteudo);
