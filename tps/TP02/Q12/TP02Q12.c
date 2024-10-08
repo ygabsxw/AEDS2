@@ -368,37 +368,36 @@ void imprimirPokemon(Pokemon *p) {
     printf("\n");
 }
 
-void shellSort(Pokemon findPokemon[], int tam, int *comp, int *mov) {
-    for (int gap = tam / 2 ; gap > 0 ; gap /= 2) {
-        for (int i = gap ; i < tam ; i++) {
-            Pokemon key = findPokemon[i];
-            int j = i;
+void swap(Pokemon *a, Pokemon *b) {
+    Pokemon aux = *a;
+    *a = *b;
+    *b = aux;
+}
 
-            while (j >= gap) {
-                bool weight = findPokemon[j - gap].weight > key.weight;
-                bool weightEquals = findPokemon[j - gap].weight == key.weight;
-                int name = strcmp(findPokemon[j - gap].name, key.name);
+void bubbleSort(Pokemon findPokemon[], int tam, int *comp, int *mov) {
+    int i, j;
+    int swapped;
 
-                (*comp)++;
-
-                if (weight || (weightEquals && name > 0)) {
-                    findPokemon[j] = findPokemon[j - gap];
-                    j -= gap;
-                } else {
-                    break;
-                }
+    for (i = 0 ; i < tam - 1 ; i++) {
+        swapped = 0;
+        for (j = 0 ; j < tam - i - 1 ; j++) {
+            (*comp)++;
+            if (findPokemon[j].id > findPokemon[j + 1].id) {
+                (*mov)++;
+                swap(&findPokemon[j], &findPokemon[j + 1]);
+                swapped = 1;
             }
-            (*mov)++;
-            findPokemon[j] = key;
         }
-    }  
-    
+
+        if (swapped == 0) 
+            break;
+    }
 }
 
 // main
 
 int main () {
-    char *csvPath = "/tmp/pokemon.csv";
+    char *csvPath = "pokemon.csv";
 
     clock_t start = clock();
 
@@ -422,7 +421,6 @@ int main () {
     Pokemon findPokemon[51];
     int comp = 0;
     int mov = 0;
-
     int j = 0;
     
     while (strcmp(inputId, "FIM") != 0) {
@@ -438,7 +436,7 @@ int main () {
         scanf("%s", inputId); 
     }
 
-    shellSort(findPokemon, j, &comp, &mov);
+    bubbleSort(findPokemon, j, &comp, &mov);
 
     for (int i = 0 ; i < j ; i++) {
         imprimirPokemon(&findPokemon[i]);
@@ -449,14 +447,14 @@ int main () {
 
     // txt
 
-    FILE *arquivo = fopen("843610_shellsort.txt", "w");
+    FILE *arquivo = fopen("843610_bolha.txt", "w");
     if (arquivo == NULL) {
         printf("Erro ao abrir o arquivo!\n");
         return 1;
     }
 
     // Escreve a matrícula, tempo de execução e número de comparações separados por tabulação
-    fprintf(arquivo, "843610\t%d\t%%ls\t%.2f\n", comp, mov, executionTime);
+    fprintf(arquivo, "843610\t%d\t%d\t%.2f\n", comp, mov, executionTime);
     fclose(arquivo);
 
     // Libera a memória alocada
