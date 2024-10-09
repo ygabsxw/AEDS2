@@ -397,7 +397,7 @@ void bubbleSort(Pokemon findPokemon[], int tam, int *comp, int *mov) {
 // main
 
 int main () {
-    char *csvPath = "pokemon.csv";
+    char *csvPath = "/tmp/pokemon.csv";
 
     clock_t start = clock();
 
