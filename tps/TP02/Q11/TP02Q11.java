@@ -326,7 +326,7 @@ public class TP02Q11 {
     
     public static void main(String[] args) {
         // ler o csv
-        String csvPath = "pokemon.csv";
+        String csvPath = "/tmp/pokemon.csv";
         
         ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
 
