@@ -1,5 +1,3 @@
-# ProjetoAEDS
+# AEDS 2
 
-Atividades em Java e C do Trabalho Prático de AEDS 2 da Faculdade PUCMinas no curso Ciências da Computação
-
-Atividades em Java e C do BeeCrowd para estudos de AEDS 2
+Repositório de Algoritmos e Estruturas de Dados II (AEDs 2) contendo todos os Trabalhos Práticos (TP01, TP02, TP03, TP04) finalizados, além de diversos exercícios resolvidos do Beecrowd para fins de estudo. O repositório também inclui a resolução de questões que apareceram nas provas da disciplina e materiais de apoio complementares para facilitar o aprendizado.
