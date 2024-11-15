@@ -249,7 +249,7 @@ class Celula {
     public Celula(Pokemon pokemon) {
         this.pokemon = pokemon;
         this.prox = null;
-      }
+    }
 }
 
 class Pilha {
@@ -268,7 +268,6 @@ class Pilha {
         tmp = null;
         n++;
     }  
-    
     
     public Pokemon remover(){
         if(topo == null) {
