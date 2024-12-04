@@ -254,22 +254,28 @@ class No {
     public Pokemon pokemon;
     public No esq;
     public No dir;
+    public boolean cor;
 
     public No (Pokemon pokemon) {
-        this(pokemon, null, null);
+        this(pokemon, null, null, false);
     }
 
-    public No (Pokemon pokemon, No esq, No dir) {
+    public No(Pokemon pokemon, boolean cor) {
+        this(pokemon, null, null, cor);
+    }
+
+    public No (Pokemon pokemon, No esq, No dir, boolean cor) {
         this.pokemon = pokemon;
         this.esq = esq;
         this.dir = dir;
+        this.cor = cor;
     }
 }
 
-class ArvoreBinaria {
+class ArvoreAlvinegra {
     private No raiz;
 
-    public ArvoreBinaria() {
+    public ArvoreAlvinegra() {
         raiz = null;
     }
 
@@ -295,29 +301,139 @@ class ArvoreBinaria {
     }
 
     public void inserir(Pokemon p) {
-        raiz = inserir(p, raiz);
-    }
-
-    private No inserir(Pokemon p, No i) {
-        if (i == null) {
-            i = new No(p);
-        } else if (p.getName().compareTo(i.pokemon.getName()) < 0) {
-            i.esq = inserir(p, i.esq);
-        } else if (p.getName().compareTo(i.pokemon.getName()) > 0) {
-            i.dir = inserir(p, i.dir);
+        if(raiz == null) {
+            raiz = new No(p, false);
+        } else if (raiz.esq == null && raiz.dir == null) {
+            if (p.getName().compareTo(raiz.pokemon.getName()) < 0) {
+                raiz.esq = new No(p);
+            } else {
+                raiz.dir = new No(p);
+            }
+        } else if (raiz.esq == null) {
+            if (p.getName().compareTo(raiz.pokemon.getName()) < 0) {
+                raiz.esq = new No(p);
+            } else if (p.getName().compareTo(raiz.dir.pokemon.getName()) < 0) {
+                raiz.esq = new No(raiz.pokemon);
+                raiz.pokemon = p;
+            } else {
+                raiz.esq = new No(raiz.pokemon);
+                raiz.pokemon = raiz.dir.pokemon;
+                raiz.dir.pokemon = p;
+            }
+            raiz.esq.cor = raiz.dir.cor = false;
+        } else if (raiz.dir == null) {
+            if (p.getName().compareTo(raiz.pokemon.getName()) > 0) {
+                raiz.dir = new No(p);
+            } else if (p.getName().compareTo(raiz.esq.pokemon.getName()) > 0) {
+                raiz.dir = new No(raiz.pokemon);
+                raiz.pokemon = p;
+            } else {
+                raiz.dir = new No(raiz.pokemon);
+                raiz.pokemon = raiz.esq.pokemon;
+                raiz.esq.pokemon = p;
+            }
+            raiz.esq.cor = raiz.dir.cor = false;
+        } else {
+            inserir(p, null, null, null, raiz);
         }
-
-        return i;
+        raiz.cor = false;
     }
 
+    private void inserir(Pokemon p, No bisavo, No avo, No pai, No i) {
+        if (i == null) {
+            if (p.getName().compareTo(pai.pokemon.getName()) < 0) {
+                i = pai.esq = new No(p, true);
+            } else {
+               i = pai.dir = new No(p, true);
+            }
+            if (pai.cor == true && avo != null) {
+                balancear(bisavo, avo, pai, i);
+            } 
+        } else {
+            //achou um 4-no: : eh preciso fragmeta-lo e reequilibrar a arvore
+            if (i.esq != null && i.dir != null && i.esq.cor && i.dir.cor) {
+                i.cor = true;
+                i.esq.cor = i.dir.cor = false;
+                if (i == raiz) {
+                    i.cor = false;
+                } else if (pai.cor == true && avo != null) {
+                    balancear(bisavo, avo, pai, i);
+                }
+            }
+            if (p.getName().compareTo(i.pokemon.getName()) < 0) {
+                inserir(p, avo, pai, i, i.esq);
+            } else if (p.getName().compareTo(i.pokemon.getName()) > 0) {
+                inserir(p, avo, pai, i, i.dir);
+            }
+        }
+    }
+
+    private void balancear(No bisavo, No avo, No pai, No i) {
+        if (avo != null && pai != null && pai.cor == true) {
+            if (pai.pokemon.getName().compareTo(avo.pokemon.getName()) < 0) {
+                if (i.pokemon.getName().compareTo(pai.pokemon.getName()) < 0) {
+                    avo = rotacaoDir(avo);
+                } else {
+                    avo = rotacaoEsqDir(avo);
+                }
+            } else {
+                if (i.pokemon.getName().compareTo(pai.pokemon.getName()) > 0) {
+                    avo = rotacaoEsq(avo);
+                } else {
+                    avo = rotacaoDirEsq(avo);
+                }
+            }
+            if (bisavo == null) {
+                raiz = avo;
+            } else if (avo.pokemon.getName().compareTo(bisavo.pokemon.getName()) < 0) {
+                bisavo.esq = avo;
+            } else {
+                bisavo.dir = avo;
+            }
+
+            avo.cor = false;
+            if (avo.esq != null) avo.esq.cor = true;
+            if (avo.dir != null) avo.dir.cor = true;
+        }
+    }
+
+    private No rotacaoDir(No no) {
+        No noEsq = no.esq;
+        No noEsqDir = noEsq.dir;
+
+        noEsq.dir = no;
+        no.esq = noEsqDir;
+
+        return noEsq;
+    }
+
+    private No rotacaoEsq(No no) {
+        No noDir = no.dir;
+        No noDirEsq = noDir.esq;
+
+        noDir.esq = no;
+        no.dir = noDirEsq;
+
+        return noDir;
+    }
+
+    private No rotacaoDirEsq(No no) {
+        no.dir = rotacaoDir(no.dir);
+        return rotacaoEsq(no);
+    }
+
+    private No rotacaoEsqDir(No no) {
+        no.esq = rotacaoEsq(no.esq);
+        return rotacaoDir(no);
+    }
 }
 
 
-public class TP04Q01 {
+public class TP04Q04 {
     public static void main(String[] args) {
         String csvPath = "/tmp/pokemon.csv";
         ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
-        ArvoreBinaria pokemonTree = new ArvoreBinaria();
+        ArvoreAlvinegra pokemonTree = new ArvoreAlvinegra();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvPath))) {
             br.readLine(); 
@@ -352,9 +468,12 @@ public class TP04Q01 {
         String name = sc.nextLine();
         while (!name.equals("FIM")) {
             Pokemon p = Pokemon.findPokemonByName(pokedex, name);
-
-            System.out.println(p.getName());
-            System.out.print("=>raiz ");
+            if (p != null) {
+                System.out.println(p.getName());
+            } else {
+                System.out.println(name);
+            }
+            System.out.print("raiz ");
 
             boolean found = pokemonTree.pesquisar(name);
             
