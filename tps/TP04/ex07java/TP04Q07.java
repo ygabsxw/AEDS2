@@ -402,7 +402,7 @@ public class TP04Q07 {
             Pokemon p = Pokemon.findPokemonByName(pokedex, name);
             System.out.print("=> " + p.getName() + ": ");
 
-            boolean found = hashDiretaReHash.pesquisar(p);
+            hashDiretaReHash.pesquisar(p);
 
             name = sc.nextLine();
         }
